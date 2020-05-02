@@ -1,0 +1,28 @@
+            <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form class="form-inline" ng-submit="add()" style="margin-bottom: 30px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Category name" ng-model="category.name" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add <span class="glyphicon glyphicon-plus-sign"></span></button>
+                    </form>
+                    <div class="table-responsive" ng-show="categoriesExist">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in categories | orderBy:'name'">
+                                    <td><a href="#" editable-text="x.name" e-label="Name" onbeforesave="updateCategory(x)">{{ x.name }}</a></td>
+                                    <td><button class="btn btn-danger" ng-click="delete(x)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-info" ng-hide="categoriesExist">There are no categories available to display</div>
+                </div>
+            </div>

@@ -1,0 +1,43 @@
+            <div class="page-header">
+                <h2>{{lastYear | date:'MM/dd/yyyy'}} to {{today | date:'MM/dd/yyyy'}}</h2>
+            </div>
+            <div class="row" style="margin-top: 30px;" ng-repeat="row in rowsArray">
+                <div class="col-md-3" ng-repeat="category in completeCategories | orderBy: 'name' | limitTo:4:(row*4)" ng-hide="getTotal(category.transactions) === 0">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{category.name}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <strong>Total: {{getTotal(category.transactions) | currency}}</strong><br /><br />
+                            <strong>Avg: {{getAvg(category.transactions) || 0 | currency}}</strong>
+                            <div class="page-header">
+                                <h4>Transactions</h4>
+                                <ul>
+                                    <li ng-repeat="transaction in category.transactions | orderBy:'-date'">{{transaction.amount | currency}}, <i>{{transaction.date | date:'MM/dd/yyyy'}}</i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Savings</h3>
+                        </div>
+                        <div class="panel-body">
+                            <strong>Total: {{getSavingsTotal(savings) | currency}}</strong>
+                            <div class="page-header">
+                                <h4>Transactions</h4>
+                                <ul>
+                                    <li ng-repeat="transaction in savings | orderBy:'-date'">
+                                        <label class="label label-success" ng-show="transaction.type === 'deposit'">{{transaction.amount | currency}}, <i>{{transaction.date | date:'MM/dd/yyyy'}}</i></label>
+                                        <label class="label label-danger" ng-hide="transaction.type === 'deposit'">-{{transaction.amount | currency}}, <i>{{transaction.date | date:'MM/dd/yyyy'}}</i></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ledger</title>
+        <!-- Bootstrap CSS -->
+		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Angular X-Editable CSS -->
+        <link href="/bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet" />
+        <!-- Custom CSS -->
+        <link href="/css/styles.css" rel="stylesheet" />
+    </head>
+    <body ng-app="ledger">
+        <div class="container">
+            <div class="jumbotron" ng-controller="jumboCtrl">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h1>Ledger</h1>
+                    </div>
+                    <div class="col-md-4 col-md-offset-4">
+                        <div ng-show="positiveBalance(currentBalance)" class="alert alert-success"><h2><strong>Balance:</strong> {{ currentBalance | currency }}</h2></div>
+                        <div ng-hide="positiveBalance(currentBalance)" class="alert alert-danger"><h2><strong>Balance:</strong> {{ currentBalance | currency }}</h2></div>
+                    </div>
+                </div>
+                <p>This is a simple ledger that replaces the traditional check book.</p>
+                <hr />
+                <p>Developed by Bob Kelecava using mongoDB, Express, AngularJS, and Node.js</p>
+            </div>
+            <div ng-controller="tabsCtrl" style="margin-bottom: 30px;">
+                <uib-tabset active="active">
+                    <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled" ng-click="changeState(tab.state)">
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+            <ui-view></ui-view>
+            <div style="margin-top: 50px;">
+            </div>
+        </div>
+
+        <!-- Jquery Library -->
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- AngularJS Library -->
+        <script src="/bower_components/angular/angular.min.js"></script>
+        <!-- Angular UI Router -->
+        <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <!-- Angular Bootstrap Library -->
+        <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <!-- X-Editable Library-->
+        <script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+
+        <!-- APP -->
+        <script src="/components/ledger/ledger.module.js"></script>
+        <script src="/components/ledger/ledger.services.js"></script>
+        <script src="/components/ledger/ledger.routes.js"></script>
+        <script src="/components/ledger/ledger.controller.js"></script>
+        
+    </body>
+</html>
